@@ -9,8 +9,8 @@ namespace WebApplication1.Controllers
 {
     public class RegisController : Controller
     {
+        //DB connection
         private linebotDBEntities db = new linebotDBEntities();
-        private int sum = 0;
         // GET: Regis
         public ActionResult Index()
         {
