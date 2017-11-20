@@ -11,6 +11,7 @@ namespace WebApplication1.Controllers
     {
         //DB connection
         private linebotDBEntities db = new linebotDBEntities();
+        //
         // GET: Regis
         public ActionResult Index()
         {
