@@ -13,22 +13,25 @@
                 <div class="ldfhljdf">
                     Register
                 </div>
-                <div class="row popodpsod">
-                    ชื่อ <input id="Text1" type="text" />
-                </div>
-                <div>นามสกุล <input id="Text2" type="text" /></div>
-                <div>บ้านเลขที่ <input id="Text4" type="text" /></div>
-                <div>หมู่บ้าน <input id="Text5" type="text" /></div>
-                <div>ซอย <input id="Text6" type="text" /></div>
-                <div>ถนน <input id="Text7" type="text" /></div>
-                <div>ตำบล <input id="Text8" type="text" /></div>
-                <div>อำเภอ <input id="Text9" type="text" /></div>
-                <div>จังหวัด <input id="Text10" type="text" /></div>
-                <div>รหัสไปรษณีย์ <input id="Text11" type="text" /></div>
-                <div>ข้อมูลเพิ่มเติม <input id="Text12" type="text" /></div>
-                @using (Html.BeginForm("data", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                }
+                
+                
+                    <form action="/Regis/LineRegister" method="post">
+                        <input type="hidden" id="u_id" name="u_id" value="@ViewBag.idreturn" />
+                        <div>ชื่อ <input id="Text1" name="name" type="text" /></div>
+                        <div>นามสกุล <input id="Text2" name="lastname" type="text" /></div>
+                        <div>เบอร์โทรศัพท์ <input id="Text3" name="tel" type="text" /></div>
+                        <div>บ้านเลขที่ <input id="Text4" name="house_no" type="text" /></div>
+                        <div>หมู่บ้าน <input id="Text5" name="village" type="text" /></div>
+                        <div>ซอย <input id="Text6" name="lane" type="text" /></div>
+                        <div>ถนน <input id="Text7" name="road" type="text" /></div>
+                        <div>ตำบล <input id="Text8" name="subarea" type="text" /></div>
+                        <div>อำเภอ <input id="Text9" name="area" type="text" /></div>
+                        <div>จังหวัด <input id="Text10" name="province" type="text" /></div>
+                        <div>รหัสไปรษณีย์ <input id="Text11" name="postal_code" type="text" /></div>
+                        <div>ข้อมูลเพิ่มเติม <input id="Text12" name="annotation" type="text" /></div>
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </form>
+                    
             </div>
         </div>
     </div>
