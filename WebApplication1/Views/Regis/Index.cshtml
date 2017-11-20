@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<link href="~/Content/register.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div>
+    <div class="row">
+        <div class="col-md-6 row">
+            <div class="input-group-addon">
+                <div class="ldfhljdf">
+                    Register
+                </div>
+                <div class="row popodpsod">
+                    ชื่อ <input id="Text1" type="text" />
+                </div>
+                <div>นามสกุล <input id="Text2" type="text" /></div>
+                <div>บ้านเลขที่ <input id="Text4" type="text" /></div>
+                <div>หมู่บ้าน <input id="Text5" type="text" /></div>
+                <div>ซอย <input id="Text6" type="text" /></div>
+                <div>ถนน <input id="Text7" type="text" /></div>
+                <div>ตำบล <input id="Text8" type="text" /></div>
+                <div>อำเภอ <input id="Text9" type="text" /></div>
+                <div>จังหวัด <input id="Text10" type="text" /></div>
+                <div>รหัสไปรษณีย์ <input id="Text11" type="text" /></div>
+                <div>ข้อมูลเพิ่มเติม <input id="Text12" type="text" /></div>
+                @using (Html.BeginForm("data", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                }
+            </div>
+        </div>
+    </div>
+</div>

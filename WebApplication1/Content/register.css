@@ -1,0 +1,26 @@
+﻿body {
+    background-color:gold;
+
+}
+.title {
+    font-size:2.5em;
+    color:rgb(255, 150, 71);
+}
+.line {
+    margin-top:1%;
+    border-bottom: 5px solid #7c7c7c;
+}
+.row{
+    margin-top:3%;
+}
+.kuy{
+    float:left;
+    width:50px;
+    height:50px;
+}
+.kukuku{
+    float:left;
+}
+.row.namebox{
+    float:left;
+}

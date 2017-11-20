@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="linebotDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="line_id" />
+          </Key>
+          <Property Name="line_id" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="u_name" Type="varchar" MaxLength="20" />
+          <Property Name="u_lastname" Type="varchar" MaxLength="20" />
+          <Property Name="u_status" Type="smallint" />
+          <Property Name="u_tel" Type="varchar" MaxLength="10" />
+          <Property Name="house_no" Type="varchar" MaxLength="10" />
+          <Property Name="village" Type="varchar" MaxLength="20" />
+          <Property Name="lane" Type="varchar" MaxLength="20" />
+          <Property Name="road" Type="varchar" MaxLength="20" />
+          <Property Name="subarea" Type="varchar" MaxLength="20" />
+          <Property Name="area" Type="varchar" MaxLength="20" />
+          <Property Name="province" Type="varchar" MaxLength="20" />
+          <Property Name="postal_code" Type="varchar" MaxLength="5" />
+          <Property Name="annotation" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="p_description" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="retail_price" Type="smallint" Nullable="false" />
+          <Property Name="wholesale_price" Type="smallint" Nullable="false" />
+          <Property Name="agent_price" Type="smallint" Nullable="false" />
+          <Property Name="p_status" Type="smallint" Nullable="false" />
+          <Property Name="p_image" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="linebotDBModelStoreContainer">
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="linebotDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="line_id" />
+          </Key>
+          <Property Name="line_id" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="u_lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="u_status" Type="Int16" />
+          <Property Name="u_tel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="house_no" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="village" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lane" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="road" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="subarea" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="area" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="annotation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="p_description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="retail_price" Type="Int16" Nullable="false" />
+          <Property Name="wholesale_price" Type="Int16" Nullable="false" />
+          <Property Name="agent_price" Type="Int16" Nullable="false" />
+          <Property Name="p_status" Type="Int16" Nullable="false" />
+          <Property Name="p_image" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="linebotDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="products" EntityType="Self.product" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="linebotDBModelStoreContainer" CdmEntityContainer="linebotDBEntities">
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="linebotDBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_lastname" ColumnName="u_lastname" />
+                <ScalarProperty Name="u_status" ColumnName="u_status" />
+                <ScalarProperty Name="u_tel" ColumnName="u_tel" />
+                <ScalarProperty Name="house_no" ColumnName="house_no" />
+                <ScalarProperty Name="village" ColumnName="village" />
+                <ScalarProperty Name="lane" ColumnName="lane" />
+                <ScalarProperty Name="road" ColumnName="road" />
+                <ScalarProperty Name="subarea" ColumnName="subarea" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="annotation" ColumnName="annotation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="linebotDBModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_name" ColumnName="p_name" />
+                <ScalarProperty Name="p_description" ColumnName="p_description" />
+                <ScalarProperty Name="retail_price" ColumnName="retail_price" />
+                <ScalarProperty Name="wholesale_price" ColumnName="wholesale_price" />
+                <ScalarProperty Name="agent_price" ColumnName="agent_price" />
+                <ScalarProperty Name="p_status" ColumnName="p_status" />
+                <ScalarProperty Name="p_image" ColumnName="p_image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
