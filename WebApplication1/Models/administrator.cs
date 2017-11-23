@@ -12,33 +12,20 @@ namespace WebApplication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class customer
+    public partial class administrator
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public customer()
+        public administrator()
         {
             this.status_history = new HashSet<status_history>();
-            this.order_list = new HashSet<order_list>();
         }
     
-        public string line_id { get; set; }
-        public string u_name { get; set; }
-        public string u_lastname { get; set; }
-        public Nullable<short> u_status { get; set; }
-        public string u_tel { get; set; }
-        public string house_no { get; set; }
-        public string village { get; set; }
-        public string lane { get; set; }
-        public string road { get; set; }
-        public string subarea { get; set; }
-        public string area { get; set; }
-        public string province { get; set; }
-        public string postal_code { get; set; }
-        public string annotation { get; set; }
+        public string ad_id { get; set; }
+        public string ad_password { get; set; }
+        public string ad_name { get; set; }
+        public string ad_lastname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<status_history> status_history { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<order_list> order_list { get; set; }
     }
 }

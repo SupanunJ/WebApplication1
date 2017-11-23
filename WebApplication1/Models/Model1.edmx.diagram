@@ -4,9 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b61dc7ec8d794bcfb9458529c5ced5d6" Name="Diagram1">
-        <EntityTypeShape EntityType="linebotDBModel.customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="linebotDBModel.product" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="e1964e28d4d242af9cd3520fc59d1dec" Name="Diagram1">
+        <EntityTypeShape EntityType="linebotDBModel.administrator" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="linebotDBModel.customer" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="linebotDBModel.order_list" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="linebotDBModel.product" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="linebotDBModel.products_in_order" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="linebotDBModel.status_history" Width="1.5" PointX="6" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="linebotDBModel.FK__status_hi__ad_id__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="linebotDBModel.FK__status_hi__line___5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="linebotDBModel.FK__products_i__o_id__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="linebotDBModel.FK__products_i__p_id__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="linebotDBModel.purchasing" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

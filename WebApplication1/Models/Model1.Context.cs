@@ -25,7 +25,11 @@ namespace WebApplication1.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<administrator> administrators { get; set; }
         public virtual DbSet<customer> customers { get; set; }
+        public virtual DbSet<order_list> order_list { get; set; }
         public virtual DbSet<product> products { get; set; }
+        public virtual DbSet<products_in_order> products_in_order { get; set; }
+        public virtual DbSet<status_history> status_history { get; set; }
     }
 }

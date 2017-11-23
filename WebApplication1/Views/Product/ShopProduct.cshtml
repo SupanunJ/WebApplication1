@@ -1,0 +1,44 @@
+﻿
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    id
+                </th>
+                <th>
+                    รุูปภาพ
+                </th>
+                <th>
+                    ชื่อสินค้า
+                </th>
+                <th>
+                    ราคา
+                </th>
+            </tr>
+        </thead>
+@foreach (var col in ViewBag.query)
+{
+        <tbody>
+            <tr>
+                <th>
+                    @col.p_id
+                </th>
+                <th>
+                    <img src="@col.p_image" class="image_product" style="width:500px;height:350px;" />
+                </th>
+                <th>
+                    @col.p_name
+                </th>
+                <th>
+                    ราคาปลีก @col.retail_price บาท
+                    ราคาส่ง (100ถุง) @col.wholesale_price บาท
+                    ราคาตัวแทนจำหน่าย (200ถุง) @col.agent_price บาท
+                </th>
+            </tr>
+
+        </tbody>
+}
+    </table>
+

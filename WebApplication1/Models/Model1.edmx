@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="linebotDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrator">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ad_password" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ad_name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ad_lastname" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="customer">
           <Key>
             <PropertyRef Name="line_id" />
@@ -24,6 +33,18 @@
           <Property Name="postal_code" Type="varchar" MaxLength="5" />
           <Property Name="annotation" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="order_list">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="o_date" Type="datetime" Nullable="false" />
+          <Property Name="o_status" Type="smallint" Nullable="false" />
+          <Property Name="o_address" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="payment" Type="smallint" Nullable="false" />
+          <Property Name="image_slip" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="total_price" Type="smallint" Nullable="false" />
+        </EntityType>
         <EntityType Name="product">
           <Key>
             <PropertyRef Name="p_id" />
@@ -37,15 +58,155 @@
           <Property Name="p_status" Type="smallint" Nullable="false" />
           <Property Name="p_image" Type="varchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <EntityType Name="products_in_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="o_id" Type="int" Nullable="false" />
+          <Property Name="p_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="purchasing">
+          <Key>
+            <PropertyRef Name="line_id" />
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="line_id" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="o_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status_history">
+          <Key>
+            <PropertyRef Name="line_id" />
+            <PropertyRef Name="ad_id" />
+            <PropertyRef Name="s_date" />
+          </Key>
+          <Property Name="line_id" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="ad_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="s_date" Type="datetime" Nullable="false" />
+          <Property Name="command" Type="smallint" Nullable="false" />
+          <Property Name="s_description" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK__products_i__o_id__66603565">
+          <End Role="order_list" Type="Self.order_list" Multiplicity="1" />
+          <End Role="products_in_order" Type="Self.products_in_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_list">
+              <PropertyRef Name="o_id" />
+            </Principal>
+            <Dependent Role="products_in_order">
+              <PropertyRef Name="o_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__products_i__p_id__6754599E">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="products_in_order" Type="Self.products_in_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="products_in_order">
+              <PropertyRef Name="p_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchasin__line___628FA481">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="purchasing" Type="Self.purchasing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="line_id" />
+            </Principal>
+            <Dependent Role="purchasing">
+              <PropertyRef Name="line_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__purchasing__o_id__6383C8BA">
+          <End Role="order_list" Type="Self.order_list" Multiplicity="1" />
+          <End Role="purchasing" Type="Self.purchasing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_list">
+              <PropertyRef Name="o_id" />
+            </Principal>
+            <Dependent Role="purchasing">
+              <PropertyRef Name="o_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__status_hi__ad_id__5FB337D6">
+          <End Role="administrator" Type="Self.administrator" Multiplicity="1" />
+          <End Role="status_history" Type="Self.status_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administrator">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="status_history">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__status_hi__line___5EBF139D">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="status_history" Type="Self.status_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="line_id" />
+            </Principal>
+            <Dependent Role="status_history">
+              <PropertyRef Name="line_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="linebotDBModelStoreContainer">
+          <EntitySet Name="administrator" EntityType="Self.administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_list" EntityType="Self.order_list" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products_in_order" EntityType="Self.products_in_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="purchasing" EntityType="Self.purchasing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status_history" EntityType="Self.status_history" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__products_i__o_id__66603565" Association="Self.FK__products_i__o_id__66603565">
+            <End Role="order_list" EntitySet="order_list" />
+            <End Role="products_in_order" EntitySet="products_in_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__products_i__p_id__6754599E" Association="Self.FK__products_i__p_id__6754599E">
+            <End Role="product" EntitySet="product" />
+            <End Role="products_in_order" EntitySet="products_in_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchasin__line___628FA481" Association="Self.FK__purchasin__line___628FA481">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="purchasing" EntitySet="purchasing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__purchasing__o_id__6383C8BA" Association="Self.FK__purchasing__o_id__6383C8BA">
+            <End Role="order_list" EntitySet="order_list" />
+            <End Role="purchasing" EntitySet="purchasing" />
+          </AssociationSet>
+          <AssociationSet Name="FK__status_hi__ad_id__5FB337D6" Association="Self.FK__status_hi__ad_id__5FB337D6">
+            <End Role="administrator" EntitySet="administrator" />
+            <End Role="status_history" EntitySet="status_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__status_hi__line___5EBF139D" Association="Self.FK__status_hi__line___5EBF139D">
+            <End Role="customer" EntitySet="customer" />
+            <End Role="status_history" EntitySet="status_history" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="linebotDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrator">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ad_password" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ad_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ad_lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="status_history" Relationship="Self.FK__status_hi__ad_id__5FB337D6" FromRole="administrator" ToRole="status_history" />
+        </EntityType>
         <EntityType Name="customer">
           <Key>
             <PropertyRef Name="line_id" />
@@ -64,6 +225,22 @@
           <Property Name="province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="postal_code" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="annotation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="status_history" Relationship="Self.FK__status_hi__line___5EBF139D" FromRole="customer" ToRole="status_history" />
+          <NavigationProperty Name="order_list" Relationship="Self.purchasing" FromRole="customer" ToRole="order_list" />
+        </EntityType>
+        <EntityType Name="order_list">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="o_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="o_status" Type="Int16" Nullable="false" />
+          <Property Name="o_address" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment" Type="Int16" Nullable="false" />
+          <Property Name="image_slip" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="total_price" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="products_in_order" Relationship="Self.FK__products_i__o_id__66603565" FromRole="order_list" ToRole="products_in_order" />
+          <NavigationProperty Name="customers" Relationship="Self.purchasing" FromRole="order_list" ToRole="customer" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -77,10 +254,112 @@
           <Property Name="agent_price" Type="Int16" Nullable="false" />
           <Property Name="p_status" Type="Int16" Nullable="false" />
           <Property Name="p_image" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="products_in_order" Relationship="Self.FK__products_i__p_id__6754599E" FromRole="product" ToRole="products_in_order" />
         </EntityType>
+        <EntityType Name="products_in_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" />
+          <Property Name="p_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="order_list" Relationship="Self.FK__products_i__o_id__66603565" FromRole="products_in_order" ToRole="order_list" />
+          <NavigationProperty Name="product" Relationship="Self.FK__products_i__p_id__6754599E" FromRole="products_in_order" ToRole="product" />
+        </EntityType>
+        <EntityType Name="status_history">
+          <Key>
+            <PropertyRef Name="line_id" />
+            <PropertyRef Name="ad_id" />
+            <PropertyRef Name="s_date" />
+          </Key>
+          <Property Name="line_id" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ad_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="s_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="command" Type="Int16" Nullable="false" />
+          <Property Name="s_description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="administrator" Relationship="Self.FK__status_hi__ad_id__5FB337D6" FromRole="status_history" ToRole="administrator" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__status_hi__line___5EBF139D" FromRole="status_history" ToRole="customer" />
+        </EntityType>
+        <Association Name="FK__status_hi__ad_id__5FB337D6">
+          <End Role="administrator" Type="Self.administrator" Multiplicity="1" />
+          <End Role="status_history" Type="Self.status_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="administrator">
+              <PropertyRef Name="ad_id" />
+            </Principal>
+            <Dependent Role="status_history">
+              <PropertyRef Name="ad_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__status_hi__line___5EBF139D">
+          <End Role="customer" Type="Self.customer" Multiplicity="1" />
+          <End Role="status_history" Type="Self.status_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="line_id" />
+            </Principal>
+            <Dependent Role="status_history">
+              <PropertyRef Name="line_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__products_i__o_id__66603565">
+          <End Role="order_list" Type="Self.order_list" Multiplicity="1" />
+          <End Role="products_in_order" Type="Self.products_in_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order_list">
+              <PropertyRef Name="o_id" />
+            </Principal>
+            <Dependent Role="products_in_order">
+              <PropertyRef Name="o_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__products_i__p_id__6754599E">
+          <End Role="product" Type="Self.product" Multiplicity="1" />
+          <End Role="products_in_order" Type="Self.products_in_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="products_in_order">
+              <PropertyRef Name="p_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="purchasing">
+          <End Role="customer" Type="Self.customer" Multiplicity="*" />
+          <End Role="order_list" Type="Self.order_list" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="linebotDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrators" EntityType="Self.administrator" />
           <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="order_list" EntityType="Self.order_list" />
           <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="products_in_order" EntityType="Self.products_in_order" />
+          <EntitySet Name="status_history" EntityType="Self.status_history" />
+          <AssociationSet Name="FK__status_hi__ad_id__5FB337D6" Association="Self.FK__status_hi__ad_id__5FB337D6">
+            <End Role="administrator" EntitySet="administrators" />
+            <End Role="status_history" EntitySet="status_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__status_hi__line___5EBF139D" Association="Self.FK__status_hi__line___5EBF139D">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="status_history" EntitySet="status_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__products_i__o_id__66603565" Association="Self.FK__products_i__o_id__66603565">
+            <End Role="order_list" EntitySet="order_list" />
+            <End Role="products_in_order" EntitySet="products_in_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__products_i__p_id__6754599E" Association="Self.FK__products_i__p_id__6754599E">
+            <End Role="product" EntitySet="products" />
+            <End Role="products_in_order" EntitySet="products_in_order" />
+          </AssociationSet>
+          <AssociationSet Name="purchasing" Association="Self.purchasing">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="order_list" EntitySet="order_list" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -88,6 +367,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="linebotDBModelStoreContainer" CdmEntityContainer="linebotDBEntities">
+          <EntitySetMapping Name="administrators">
+            <EntityTypeMapping TypeName="linebotDBModel.administrator">
+              <MappingFragment StoreEntitySet="administrator">
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+                <ScalarProperty Name="ad_name" ColumnName="ad_name" />
+                <ScalarProperty Name="ad_lastname" ColumnName="ad_lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="customers">
             <EntityTypeMapping TypeName="linebotDBModel.customer">
               <MappingFragment StoreEntitySet="customer">
@@ -108,6 +397,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="order_list">
+            <EntityTypeMapping TypeName="linebotDBModel.order_list">
+              <MappingFragment StoreEntitySet="order_list">
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+                <ScalarProperty Name="o_date" ColumnName="o_date" />
+                <ScalarProperty Name="o_status" ColumnName="o_status" />
+                <ScalarProperty Name="o_address" ColumnName="o_address" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="image_slip" ColumnName="image_slip" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="linebotDBModel.product">
               <MappingFragment StoreEntitySet="product">
@@ -122,6 +424,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="products_in_order">
+            <EntityTypeMapping TypeName="linebotDBModel.products_in_order">
+              <MappingFragment StoreEntitySet="products_in_order">
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status_history">
+            <EntityTypeMapping TypeName="linebotDBModel.status_history">
+              <MappingFragment StoreEntitySet="status_history">
+                <ScalarProperty Name="line_id" ColumnName="line_id" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+                <ScalarProperty Name="s_date" ColumnName="s_date" />
+                <ScalarProperty Name="command" ColumnName="command" />
+                <ScalarProperty Name="s_description" ColumnName="s_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="purchasing" TypeName="linebotDBModel.purchasing" StoreEntitySet="purchasing">
+            <EndProperty Name="customer">
+              <ScalarProperty Name="line_id" ColumnName="line_id" />
+            </EndProperty>
+            <EndProperty Name="order_list">
+              <ScalarProperty Name="o_id" ColumnName="o_id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

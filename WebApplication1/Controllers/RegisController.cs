@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
 
             db.customers.Add(c);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
         }
     }
 }

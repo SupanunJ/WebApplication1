@@ -12,24 +12,26 @@ namespace WebApplication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class product
+    public partial class order_list
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public product()
+        public order_list()
         {
             this.products_in_order = new HashSet<products_in_order>();
+            this.customers = new HashSet<customer>();
         }
     
-        public int p_id { get; set; }
-        public string p_name { get; set; }
-        public string p_description { get; set; }
-        public short retail_price { get; set; }
-        public short wholesale_price { get; set; }
-        public short agent_price { get; set; }
-        public short p_status { get; set; }
-        public string p_image { get; set; }
+        public int o_id { get; set; }
+        public System.DateTime o_date { get; set; }
+        public short o_status { get; set; }
+        public string o_address { get; set; }
+        public short payment { get; set; }
+        public string image_slip { get; set; }
+        public short total_price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<products_in_order> products_in_order { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<customer> customers { get; set; }
     }
 }
