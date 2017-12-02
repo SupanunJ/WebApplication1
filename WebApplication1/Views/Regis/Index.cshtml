@@ -1,37 +1,72 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = null;
+    
 }
 
 <link href="~/Content/register.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
-<div>
-    <div class="row">
-        <div class="col-md-6 row">
-            <div class="input-group-addon">
-                <div class="ldfhljdf">
-                    Register
-                </div>
-                
+
+<body>
+    <div>
+        <div class="row">
+            <div class="col-md-4 row" style="margin-left:5%;">
+                <div class="input-group-addon">
+                    <div class="RE">
+                        <h2>Register</h2>
+                        <div><h5>กรุณากรอกข้อมูลให้ครบ</h5></div>
+                    </div>
+
                     <form action="/Regis/LineRegister" method="post">
-                        <input type="hidden" id="u_id" name="u_id" value="@ViewBag.idreturn" />
-                        <div>ชื่อ <input id="Text1" name="name" type="text" /></div>
-                        <div>นามสกุล <input id="Text2" name="lastname" type="text" /></div>
-                        <div>เบอร์โทรศัพท์ <input id="Text3" name="tel" type="text" /></div>
-                        <div>บ้านเลขที่ <input id="Text4" name="house_no" type="text" /></div>
-                        <div>หมู่บ้าน <input id="Text5" name="village" type="text" /></div>
-                        <div>ซอย <input id="Text6" name="lane" type="text" /></div>
-                        <div>ถนน <input id="Text7" name="road" type="text" /></div>
-                        <div>ตำบล <input id="Text8" name="subarea" type="text" /></div>
-                        <div>อำเภอ <input id="Text9" name="area" type="text" /></div>
-                        <div>จังหวัด <input id="Text10" name="province" type="text" /></div>
-                        <div>รหัสไปรษณีย์ <input id="Text11" name="postal_code" type="text" /></div>
-                        <div>ข้อมูลเพิ่มเติม <input id="Text12" name="annotation" type="text" /></div>
+                        <div>
+                            <input type="hidden" id="u_id" name="u_id" value="@ViewBag.idreturn" />
+                        </div>
+                        <div>
+                            <label for="name" style="float:left;">Name:</label><input class="form-control id="Text" name="name" type="text" maxlength="20" placeholder="ชื่อ" required/>
+                        </div>
+                        <div>
+                            <label for="lastname" style="float:left;">Lastname:</label><input class="form-control class=" form-control id="Text" name="lastname" type="text" maxlength="20" placeholder="นามสกุล" required/>
+                        </div>
+                        <div>
+                            <label for="tel" style="float:left;">Tel-Number:</label><input class="form-control id="Text" name="tel" type="text" pattern="[0-9]{10}" title="กรุณาใส่เฉพาะตัวเลขให้ครบ10หลัก" placeholder="เบอร์โทรศัพท์" required/>
+                        </div>
+                        <div>
+                            <label for="houseon" style="float:left;">House No:</label><input class="form-control id="Text" name="house_no" type="text" maxlength="10" placeholder="บ้านเลขที่" required/>
+                        </div>
+                        <div>
+                            <label for="village" style="float:left;">Village:</label><input class="form-control id="Text" name="village" type="text" maxlength="20" placeholder="หมู่บ้าน" required/>
+                        </div>
+                        <div>
+                            <label for="lane" style="float:left;">Lane:</label><input class="form-control id="Text" name="lane" type="text" maxlength="20" placeholder="ซอย" required/>
+                        </div>
+                        <div>
+                            <label for="road" style="float:left;">Road:</label><input class="form-control id="Text" name="road" type="text" maxlength="20" placeholder="ถนน" required/>
+                        </div>
+                        <div>
+                            <label for="subarea" style="float:left;">SubArea:</label><input class="form-control id="Text" name="subarea" type="text" maxlength="20" placeholder="ตำบล" required/>
+                        </div>
+                        <div>
+                            <label for="area" style="float:left;">Area:</label><input class="form-control id="Text" name="area" type="text" maxlength="20" placeholder="อำเภอ" required/>
+                        </div>
+                        <div>
+                            <label for="province" style="float:left;">Province:</label><input class="form-control id="Text" name="province" type="text" maxlength="20" placeholder="จังหวัด" required/>
+                        </div>
+                        <div>
+                            <label for="postal" style="float:left;">Postal Code:</label><input class="form-control id="Text" name="postal_code" type="text" pattern="[0-9]{5}" title="กรุณาใส่เลขรหัสไปรษณีย์ให้ครบ5หลัก" maxlength="5" placeholder="รหัสไปรษณีย์" required/>
+                        </div>
+                        <div>
+                            @*<input id="Text12" name="annotation" type="text" maxlength="50" placeholder="ข้อมูลเพิ่มเติม" size="60" />*@
+                            <label style="float:left;" for="comment">Comment:</label>
+                            <textarea class="form-control" rows="2" maxlength="50" id="Text12" name="annotation"></textarea>
+                        </div>
+                        <div></div>
                         <button type="submit" class="btn btn-primary">OK</button>
                     </form>
-                    
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+
+

@@ -1,44 +1,63 @@
 ﻿
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    id
-                </th>
-                <th>
-                    รุูปภาพ
-                </th>
-                <th>
-                    ชื่อสินค้า
-                </th>
-                <th>
-                    ราคา
-                </th>
-            </tr>
-        </thead>
-@foreach (var col in ViewBag.query)
-{
-        <tbody>
-            <tr>
-                <th>
-                    @col.p_id
-                </th>
-                <th>
-                    <img src="@col.p_image" class="image_product" style="width:500px;height:350px;" />
-                </th>
-                <th>
-                    @col.p_name
-                </th>
-                <th>
-                    ราคาปลีก @col.retail_price บาท
-                    ราคาส่ง (100ถุง) @col.wholesale_price บาท
-                    ราคาตัวแทนจำหน่าย (200ถุง) @col.agent_price บาท
-                </th>
-            </tr>
+<body style="background-color: antiquewhite">
+    <form action="/Product/CalProduct" enctype="multipart/form-data" method="post">
+        <input type="hidden" id="u_id" name="u_id" value="@ViewBag.idreturn" />
+        @foreach (var col in ViewBag.query)
+        {
+            <div>
+                <img src="https://preproject2mvc20171126124543.azurewebsites.net/BG/@col.p_image" class="col.p_id" style="width:150px;height:85px;" />
+            </div>
+            <div>
+                @col.p_name
+            </div>
+            <div>
+                ราคาปลีก @col.retail_price บาท
+                ราคาส่ง (100ถุง) @col.wholesale_price บาท
+                ราคาตัวแทนจำหน่าย (200ถุง) @col.agent_price บาท
+            </div>
+            <div>
+                <input id="@col.p_id" name="@col.p_id" value="0" type="text" class="form-control" pattern="[0-9]{0,4}" title="กรุณาเฉพาะตัวเลข" placeholder="กรุณาใส่จำนวนที่ท่านต้องการ" required />
+            </div>
+        }
+        <div>ที่อยู่ที่ท่านต้องการให้จัดส่ง : <input id="address" name="address" type="text" placeholder="กรุณาใส่ที่อยู่ของท่าน" required/></div>
+        <div><h6>**หากที่อยู่ที่ต้องการจัดส่งของท่านตรงกับที่อยู่ปัจจุบันท่านสามารถใส่คำว่า ที่อยู่ปัจจุบัน</h6></div>
+        <div>
+            ช่องทางการชำระเงิน
+            <select id="option_payment" name="option_payment">
+                <option value="0">ชำระเงินปลายทาง</option>
+                <option value="1">โอนเงิน</option>
+            </select>
+        </div>
+        <div id="display_image" style="display:none;">
+            <label for="image_label">Upload Image:</label>
+            <input id="file" name="file" type="file" />
+            <label>บัญชีธนาคาร ได้แก่</label>
+            <img src="https://scontent.fbkk8-2.fna.fbcdn.net/v/t34.0-12/24008816_2068963346467478_2137007021_n.jpg?oh=88b9d5ba563e288d5f462ed72d2c22f4&oe=5A1DF28D" style="width:600px;height:400px;" />
+        </div>
+        <button type="submit" class="btn btn-primary">ยืนยันการสั่งซื้อ</button>
 
-        </tbody>
-}
-    </table>
 
+
+
+
+    </form>
+
+    <script>
+        $("#option_payment").change(function () {
+            var value = $('#option_payment').val();
+            if (value == "1") {
+                //alert("eiei");
+                $('#display_image').show();
+            }
+            else {
+                $('#display_image').hide();
+            }
+        });
+    </script>
+
+</body>

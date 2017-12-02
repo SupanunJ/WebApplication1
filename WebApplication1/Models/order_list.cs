@@ -18,7 +18,6 @@ namespace WebApplication1.Models
         public order_list()
         {
             this.products_in_order = new HashSet<products_in_order>();
-            this.customers = new HashSet<customer>();
         }
     
         public int o_id { get; set; }
@@ -28,10 +27,9 @@ namespace WebApplication1.Models
         public short payment { get; set; }
         public string image_slip { get; set; }
         public short total_price { get; set; }
+        public string line_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<products_in_order> products_in_order { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<customer> customers { get; set; }
     }
 }

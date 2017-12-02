@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "CalProduct";
+    
+}
+
+<body style="background-color: antiquewhite">
+
+    <h2>รหัสออเดอร์ @ViewBag.queryOrder.o_id</h2>
+    <div>
+        วันที่ : @ViewBag.queryOrder.o_date
+    </div>
+    <div>
+        ที่จัดส่ง : @ViewBag.queryOrder.o_address
+    </div>
+    <div>
+        ราคาทั้งหมด : @ViewBag.queryOrder.total_price
+    </div>
+    @if (@ViewBag.queryOrder.payment != 0)
+    {
+        <div>
+            <img src="~/Image/@ViewBag.queryOrder.image_slip" style="width:150px;height:85px;" />
+        </div>
+    }
+
+    <h4>สินค้าที่สั่งคือ</h4>
+    @foreach (var p in ViewBag.queryInOrder)
+    {
+        <div>
+            รหัสสินค้า @p.p_id
+        </div>
+        <div>
+            จำนวนที่สั่ง @p.quantity
+        </div>
+    }
+</body>
+
+
+

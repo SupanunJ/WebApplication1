@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Check";
+    
+}
+
+
+<body style="background-color: antiquewhite">
+    <h2>ตรวจสอบออเดอร์</h2>
+
+    @foreach (var n in ViewBag.query)
+    {
+        <h3>รหัสออเดอร์ : @n.o_id</h3>
+        <div>วันที่สั่ง : @n.o_date</div>
+        <div>สถานะออเดอร์ : @n.o_status</div>
+        <div>ที่อยู่ที่จัดส่ง : @n.o_address</div>
+        <div>
+            วิธีการชำระเงิน : @if (n.payment == 0)
+            {<label>ชำระเงินปลายทาง</label>}
+            else
+            { <label>โอนผ่านธนาคาร</label> }
+        </div>
+            <div>ราคารวม : @n.total_price บาท</div>
+            <div>.....................</div>
+    }
+</body>

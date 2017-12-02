@@ -18,7 +18,6 @@ namespace WebApplication1.Models
         public customer()
         {
             this.status_history = new HashSet<status_history>();
-            this.order_list = new HashSet<order_list>();
         }
     
         public string line_id { get; set; }
@@ -38,7 +37,5 @@ namespace WebApplication1.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<status_history> status_history { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<order_list> order_list { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
                 line_id = Request.Form["u_id"],
                 u_name = Request.Form["name"],
                 u_lastname = Request.Form["lastname"],
-                u_status = 1,
+                u_status = 0,
                 u_tel = Request.Form["tel"],
                 house_no = Request.Form["house_no"],
                 village = Request.Form["village"],
